@@ -1,13 +1,18 @@
 package main
 
 import (
+	"errors"
 	"strconv"
 )
 
 func main() {
 }
 
-func romanNumeral(num int) string {
+func romanNumeral(num int) (string, error) {
+	if num > 3999 {
+		return "", errors.New("I can't count that high")
+	}
+
 	s := strconv.Itoa(num)
 	bytes := ([]byte)(s)
 
@@ -20,7 +25,7 @@ func romanNumeral(num int) string {
 		numerals = append(o.getNumeral(), numerals...)
 		orderOfMagnitude++
 	}
-	return string(numerals)
+	return string(numerals), nil
 }
 
 type order struct {
@@ -51,4 +56,5 @@ var ordersOfMagnitude = []order{
 	order{i: ([]byte)("I")[0], v: ([]byte)("V")[0], x: ([]byte)("X")[0]},
 	order{i: ([]byte)("X")[0], v: ([]byte)("L")[0], x: ([]byte)("C")[0]},
 	order{i: ([]byte)("C")[0], v: ([]byte)("D")[0], x: ([]byte)("M")[0]},
+	order{i: ([]byte)("M")[0], v: byte(0), x: byte(0)},
 }
