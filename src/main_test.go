@@ -8,6 +8,10 @@ import (
 
 func TestIt(t *testing.T) {
 	Convey("It converts to Roman numerals", t, func() {
+		Convey("converts 0", func() {
+			numeral, _ := romanNumeral(0)
+			So(numeral, ShouldEqual, "")
+		})
 		Convey("converts 1", func() {
 			numeral, _ := romanNumeral(1)
 			So(numeral, ShouldEqual, "I")
